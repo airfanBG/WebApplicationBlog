@@ -20,10 +20,14 @@ namespace Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            configuration = new ConfigurationBuilder().SetBasePath(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)).AddJsonFile("appsettings.json").Build();
-            //AppDomain.CurrentDomain.BaseDirectory това също работи, ако го подмените на мястото на Assembly.GetExecutingAssembly().Location)
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
-            optionsBuilder.UseSqlServer(connectionString);
+            //configuration = new ConfigurationBuilder().SetBasePath(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)).AddJsonFile("appsettings.json").Build();
+            ////AppDomain.CurrentDomain.BaseDirectory това също работи, ако го подмените на мястото на Assembly.GetExecutingAssembly().Location)
+            //var connectionString = configuration.GetConnectionString("DefaultConnection");
+
+            // optionsBuilder.UseSqlServer("Server=AIRFAN\\SQLEXPRESS;Database=Blogging;Integrated Security=True");
+
+            configuration = new ConfigurationBuilder().AddUserSecrets(Assembly.GetExecutingAssembly()).Build();
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

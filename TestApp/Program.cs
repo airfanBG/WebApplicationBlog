@@ -20,7 +20,8 @@ namespace TestApp
                 //    Url = x.Url,
                 //    Posts = x.Posts
                 //}).ToList();
-                var res = db.Blogs.ToList();
+
+                var res = db.Posts.ToList();
                
             }
             //CRUD 
