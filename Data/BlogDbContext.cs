@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 
 namespace Data
@@ -19,10 +20,10 @@ namespace Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            
-
-            optionsBuilder.UseSqlServer(
-                @"Server=AIRFAN\SQLEXPRESS;Database=Blogging;Integrated Security=True");
+            configuration = new ConfigurationBuilder().SetBasePath(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)).AddJsonFile("appsettings.json").Build();
+            //AppDomain.CurrentDomain.BaseDirectory това също работи, ако го подмените на мястото на Assembly.GetExecutingAssembly().Location)
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            optionsBuilder.UseSqlServer(connectionString);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -13,17 +13,18 @@ namespace WebApplication.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private BlogDbContext BlogDbContext;
+        public HomeController(ILogger<HomeController> logger, BlogDbContext context)
         {
             _logger = logger;
+            BlogDbContext = context;
         }
 
         public IActionResult Index()
         {
-            using (BlogDbContext db=new BlogDbContext())
+            using (BlogDbContext)
             {
-               var res= db.Blogs.ToList();
+                var res = BlogDbContext.Blogs.ToList();
             }
             return View();
         }

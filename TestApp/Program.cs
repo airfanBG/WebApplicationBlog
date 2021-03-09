@@ -20,9 +20,8 @@ namespace TestApp
                 //    Url = x.Url,
                 //    Posts = x.Posts
                 //}).ToList();
-
-                var res = db.Blogs.Where(x => x.UserId == 1).Include(x => x.Posts).ThenInclude(x => x.Tags).ToList();
-
+                var res = db.Blogs.ToList();
+               
             }
             //CRUD 
             //BlogDbContext context = new BlogDbContext();

@@ -6,6 +6,10 @@ namespace Model
 {
     public class Blog
     {
+        public Blog()
+        {
+            Posts = new List<Post>();
+        }
         public int Id { get; set; }
       
         [MaxLength(1000)]
